@@ -26,8 +26,12 @@ import cgi
 import cgitb
 cgitb.enable()
 
+import socket
 import sys
-sys.path.insert(0, "/home/dh_fwkigp/trioembed")
+if socket.gethostname() == 'tanoomba':
+    sys.path.insert(0, "/home/louis/Repositories/oembed-squarespace")
+elif socket.gethostname() == "ps577446":
+    sys.path.insert(0, "/home/dh_fwkigp/trioembed")
 import trioembed
 
 form = cgi.FieldStorage()
