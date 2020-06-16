@@ -24,35 +24,30 @@
 
 import cgi
 import cgitb
+cgitb.enable()
+
 import socket
 import sys
-
 if socket.gethostname() == 'tanoomba':
     sys.path.insert(0, "/home/louis/Repositories/oembed-squarespace")
-    cgitb.enable(display=0, logdir="/tmp/trioembed-logs")
 elif socket.gethostname() == "ps577446":
     sys.path.insert(0, "/home/dh_fwkigp/trioembed")
-    cgitb.enable(display=0, logdir="/home/dh_fwkigp/trioembed-logs")
-
 import trioembed
 
 form = cgi.FieldStorage()
 embedder = trioembed.OldSiteEmbedder()
 
 if "maxwidth" in form:
-    embedder.maxwidth = int(form["maxwidth"].value)
+    embedder.maxwidth = int(form["maxwidth"])
 else:
     embedder.maxwidth = None
 
 if "maxheight" in form:
-    embedder.maxheight = int(form["maxheight"].value)
+    embedder.maxheight = int(form["maxheight"])
 else:
     embedder.maxheight = None
 
-if "format" in form and form["format"].value == "raw":
-    output = embedder.html()
-else:
-    output = embedder.respond()
+output = embedder.html()
 
 print("Content-Type: text/html")
 print()
