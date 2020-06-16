@@ -28,10 +28,22 @@ cgitb.enable()
 
 import sys
 sys.path.insert(0, "/home/dh_fwkigp/trioembed")
-import trioembed.oldsite
+import trioembed
 
-embedder = trioembed.oldsite.OldSiteEmbedder()
-output = embedder.go()
+form = cgi.FieldStorage()
+embedder = trioembed.OldSiteEmbedder()
+
+if "maxwidth" in form:
+    embedder.maxwidth = int(form["maxwidth"])
+else:
+    embedder.maxwidth = None
+
+if "maxheight" in form:
+    embedder.maxheight = int(form["maxheight"])
+else:
+    embedder.maxheight = None
+
+output = embedder.respond()
 
 print("Content-Type: text/html")
 print()
