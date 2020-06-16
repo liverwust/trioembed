@@ -50,10 +50,12 @@ else:
     embedder.maxheight = None
 
 if "format" in form and form["format"].value == "raw":
+    content_type = "text/html"
     output = embedder.html()
 else:
+    content_type = "application/json"
     output = embedder.respond()
 
-print("Content-Type: text/html")
+print("Content-Type: " + content_type)
 print()
 print(output)
